@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Summarize GitHub profiles easily. Get a brief overview of a developer's repositories, skills, and README content with our GitHub profile summary tool Dev Summary.">
+    <meta name="keywords" content="Git Hub, github, summary, summarizer, git, profile, prodev717">
+    <meta name="author" content="Ganesh M" />
+    <link rel="icon" href="{{url_for('static',filename='logo.png')}}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dev Summary</title>
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="disp"></div>
+    <button hx-get="/test" hx-trigger="click" hx-target="#disp" hx-swap="outerHTML">click here</button>
+  </body>
+</html>

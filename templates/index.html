@@ -11,7 +11,10 @@
     <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
   </head>
   <body>
+    <form hx-post="/inp" hx-target="#disp" hx-swap="innerHTML" hx-on="htmx:afterRequest: this.reset()">
+      <input type="text" name="username">
+      <button type="submit">summarize</button>
+    </form>
     <div id="disp"></div>
-    <button hx-get="/test" hx-trigger="click" hx-target="#disp" hx-swap="outerHTML">click here</button>
   </body>
 </html>

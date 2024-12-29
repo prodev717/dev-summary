@@ -28,7 +28,7 @@ def aiResponse(username):
     if repos!=None:
         api = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI}"
         headers = {"Content-Type": "application/json"}
-        prompt = "data given below is a details of projects developed by a developer as json , summarize about him , what kind of developer he is? also discuss about his projects , response as plain text no formating\n"
+        prompt = "The data below is a JSON representation of projects developed by a developer. Provide a plain text summary of the developer's skills, experience, and what kind of developer they are based on these projects. Include an explanation of their projects, highlighting the technologies and key features. Use only plain text with no formatting or special characters\n"
         response = requests.post(api,headers=headers,json={"contents": [{"parts": [{"text": prompt+json.dumps(repos)}]}]})
         return response.json()["candidates"][0]["content"]["parts"][0]["text"]
     else:
@@ -40,7 +40,7 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/inp",methods=["POST"])
+@app.route("/fetch",methods=["POST"])
 def inp():
     username = request.form.get("username")
     return aiResponse(username)

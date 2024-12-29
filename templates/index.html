@@ -11,10 +11,23 @@
     <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
   </head>
   <body>
-    <form hx-post="/inp" hx-target="#disp" hx-swap="innerHTML" hx-on="htmx:afterRequest: this.reset()">
-      <input type="text" name="username">
-      <button type="submit">summarize</button>
-    </form>
-    <div id="disp"></div>
+    <center>
+      <form hx-post="/fetch" 
+            hx-target="#disp" 
+            hx-swap="innerHTML" 
+            hx-on:htmx:after-request="this.reset();document.getElementById('loading').style.display='none';"
+            hx-on:htmx:before-request="hide()">
+        <input autocomplete="off" type="text" name="username" placeholder="Enter GitHub Username" required><br>
+        <button type="submit">summarize</button>
+      </form>
+      <p id="loading" style="display: none;">Loading...</p>
+      <div id="disp"></div>
+    </center>
+    <script>
+      function hide(){
+        document.getElementById('disp').innerHTML='';
+        document.getElementById('loading').style.display='block';
+      }
+    </script>
   </body>
 </html>

@@ -12,9 +12,10 @@
     <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
   </head>
   <body class="bg-[#1C1C1C] min-h-screen">
-    <header class="bg-green-500 p-7">
-      <p class="font-bold text-4xl pb-5">Dev Summary</p>
-      <p class="text-base text-xl">This website is a tool to analyze a GitHub user's profile and generates a summary of their skills, experience, and development focus based on their projects. It provides insights into the developer's strengths and the nature of their contributions.</p>
+    <header class="bg-green-500 p-5 md:p-7">
+      <p class="font-bold text-2xl md:text-4xl pb-5">Dev Summary</p>
+      <p class="text-base md:text-xl">This website is a tool to analyze a GitHub user's profile and generate a summary of their skills, experience, and development focus based on their projects. It provides insights into the developer's strengths and the nature of their contributions.</p>
+      <p class="text-base md:text-xl pt-2">{{url}}&lt;username&gt; - Provides the user's profile summary as JSON.</p>
     </header>
     <main>
       <div class="flex justify-center align-center">
@@ -31,10 +32,14 @@
       </div>
       <div class="flex justify-center align-center">
         <div id="loading" style="display: none;" class="absolute w-52 h-52 border-8 border-transparent border-t-green-500 rounded-full animate-spin neon-icon"></div>
-        <div class="m-10" id="disp"></div>
+        <div class="m-10" id="disp">
+          {% if summary %}
+            {{ summary | safe }}
+          {% endif %}
+        </div>
       </div>
     </main>
-    <footer class="sticky top-[100vh] bg-black text-white text-center py-10">
+    <footer class="sticky top-[100vh] text-white text-center py-5">
       <p>Created by <a class="text-blue-500" href="https://github.com/prodev717">Ganesh M</a> | Powered by <strong>GitHub API</strong> and <strong>Gemini AI</strong></p>
     </footer>
   </body>

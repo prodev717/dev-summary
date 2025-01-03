@@ -5,8 +5,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    screens: {
+      'sm': '390px',
+      'md': '660px',
+      'lg': '1080px',
+    },
+    extend: {
+      fontFamily: {
+        'poppins': ['Poppins'],
+      }
+    },
   },
-  plugins: [],
+  
+  // eslint-disable-next-line no-undef
+  plugins: [require('tailwindcss-motion')],
 }
 

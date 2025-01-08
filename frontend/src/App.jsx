@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/common/NavBar';
-import Landing from './pages/landing/Landing';
-import DevInfo from './pages/devinfo/DevInfo';
+import Landing from './pages/Landing';
+import DevInfo from './pages/DevInfo';
+import Footer from './components/common/Footer';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
             <Route path="/devinfo" element={<DevInfo />} />
           </Routes>
       </BrowserRouter>
+      <Footer />
     </>
   );
 }

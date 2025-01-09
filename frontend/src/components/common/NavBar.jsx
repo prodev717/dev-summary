@@ -9,7 +9,7 @@ export default function NavBar() {
     
     const navLinks = [
         {id: 1,text: 'DevInfo', link: '/devinfo', icon: devicon},
-        {id: 2,text: 'RepoInfo', link: '#', icon: repoicon},
+        {id: 2,text: 'RepoInfo', link: '/repoinfo', icon: repoicon},
         {id: 3,text: 'Q&A', link: '#', icon: qnaicon},
         {id: 4,text: 'API Docs', link: '#', icon: docsicon},
     ];

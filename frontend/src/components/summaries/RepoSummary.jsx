@@ -51,6 +51,7 @@ export default function RepoSummary() {
                             handleSummary();
                             setLoading(true);
                         }}
+                        disabled={loading}
                     >
                         Summarize
                     </button>

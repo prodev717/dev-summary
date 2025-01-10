@@ -43,6 +43,7 @@ export default function DevSummary() {
                             handleSummary();
                             setLoading(true);
                         }}
+                        disabled={loading}
                     >
                         Summarize
                     </button>

@@ -1,4 +1,4 @@
-import DevSummary from "../components/summaries/DevSummary";
+import DevSummary from "../components/sections/DevSummary";
 
 export default function DevInfo() {
     return (

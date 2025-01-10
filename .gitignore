@@ -1,1 +1,17 @@
+# Backend
+backend/__pycache__/
+backend/_pycache_/
 backend/.env
+backend/*.py[cod]
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env*
+
+# IDE and System
+.vscode/
+.idea/
+.DS_Store
+*.swp

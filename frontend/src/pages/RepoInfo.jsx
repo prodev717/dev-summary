@@ -1,4 +1,4 @@
-import RepoSummary from '../components/summaries/RepoSummary';
+import RepoSummary from '../components/sections/RepoSummary';
 
 export default function RepoInfo() {
     return (

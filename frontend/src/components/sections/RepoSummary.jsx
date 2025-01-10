@@ -25,7 +25,7 @@ export default function RepoSummary() {
     };
 
     return (
-        <div className="min-h-screen w-screen max-w-full max-h-full bg-[#352F44] bg-fixed flex flex-col items-center">
+        <div className="w-screen max-w-full flex flex-col items-center">
             <div className="sm:w-[85%] h-16 lg:w-[60%] bg-[#5C5470] rounded-lg border-[#FAF0E6] border-4 flex flex-col justify-center items-center motion-preset-fade motion-duration-[2.5s]">
                 <div className="w-[100%] px-2 flex items-center justify-between">
                     <input

@@ -4,7 +4,7 @@ import arrow from '../../assets/arrow.png';
 export default function HeroSection() {
     return (
         <>
-            <div className='w-[100%] flex flex-wrap justify-center items-center py-5 sm:py-1 text-[#FAF0E6]'>
+            <div className='w-full flex flex-wrap justify-center items-center py-5 sm:py-1 text-[#FAF0E6]'>
                 <div className='flex items-center sm:flex-col md:flex-row sm:justify-center'>
                     <div className='sm:w-[90%] lg:w-[47%] flex flex-wrap mx-5 lg:ml-8 sm:my-5'>
                         <h1 className='sm:text-5xl md:text-7xl font-poppins font-semibold motion-preset-slide-right motion-duration-[1.13s]'>Explore GitHub Like Never Before</h1>

@@ -27,7 +27,7 @@ export default function APIdocs() {
                     </ul>
                     <h2 className='text-xl font-semibold w-[100%] text-left my-5'>Response</h2>
                     <p className='my-2'><strong>200 OK</strong>: Returns a JSON object containing the developer's Github profile summary.</p>
-                    <div className="bg-[#5C5470] my-5 mx-auto py-2 px-3 rounded-lg font-mono">
+                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
                         <div><span>{`{`}</span></div>
                         <div className="ml-4">
                             <span className="text-orange-500">{`"summary"`}</span>
@@ -37,7 +37,7 @@ export default function APIdocs() {
                         <div><span>{`}`}</span></div>
                     </div>
                     <p className='my-2'><strong>Error</strong>: If username is invalid or data fetching fails</p>
-                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono">
+                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
                         <div><span>{`{`}</span></div>
                         <div className="ml-4">
                             <span className="text-orange-500">{`"summary"`}</span>
@@ -57,7 +57,7 @@ export default function APIdocs() {
                     </ul>
                     <h2 className='text-xl font-semibold w-[100%] text-left my-5'>Response</h2>
                     <p className='my-2'><strong>200 OK</strong>: Returns a JSON object containing a detailed summary of the repository.</p>
-                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono">
+                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
                         <div><span>{`{`}</span></div>
                         <div className="ml-4">
                             <span className="text-orange-500">{`"summary"`}</span>
@@ -67,7 +67,7 @@ export default function APIdocs() {
                         <div><span>{`}`}</span></div>
                     </div>
                     <p className='my-2'><strong>Error</strong>: If username or repository name is invalid or data fetching fails</p>
-                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono">
+                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
                         <div><span>{`{`}</span></div>
                         <div className="ml-4">
                             <span className="text-orange-500">{`"summary"`}</span>

@@ -16,6 +16,7 @@ export default function DevSummary() {
         .then(data => {
             setLoading(false);
             setUserSummary(data); 
+            console.log(data);
         })
         .catch((error) => {
             setLoading(false);
@@ -24,7 +25,7 @@ export default function DevSummary() {
     };
 
     return (
-        <div className="w-screen max-w-full flex flex-col items-center">
+        <div className="w-screen max-w-full flex flex-col items-center mt-2">
             <div className="sm:w-[85%] h-16 lg:w-[60%] bg-[#5C5470] rounded-lg border-[#FAF0E6] border-4 flex flex-col justify-center items-center motion-preset-fade motion-duration-[2.5s]">
                 <div className="w-[100%] px-2 flex items-center justify-between">
                     <input
@@ -34,7 +35,7 @@ export default function DevSummary() {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <button
-                        className="sm:w-[25%] lg:w-[20%] sm:text-xs lg:text-lg h-10 py-1 px-2 bg-[#B9B4C7] text-[#FAF0E6] rounded-lg border-[#FAF0E6] border-2 transition transform hover:translate-x-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
+                        className="sm:w-[25%] lg:w-[20%] sm:text-xs lg:text-lg h-10 py-1 px-2 bg-[#B9B4C7] text-[#FAF0E6] rounded-lg border-[#FAF0E6] border-2"
                         onClick={() => {
                             if (!username) {
                                 alert('Please provide the username');
@@ -49,7 +50,7 @@ export default function DevSummary() {
                     </button>
                 </div>
             </div>
-            <div className="sm:w-[85%] lg:w-[60%] h-fit bg-[#5C5470] rounded-lg border-[#FAF0E6] border-4 mt-10 flex flex-col justify-center items-center px-2 py-2">
+            <div className="sm:w-[85%] lg:w-[60%] h-fit bg-[#5C5470] rounded-lg border-[#FAF0E6] border-4 mt-10 flex flex-col justify-center items-center px-2 py-2 motion-preset-fade motion-duration-[2.5s]">
                 {loading ? (
                     <div
                     className="inline-block h-12 w-12 mb-4 animate-spin rounded-full border-4 border-solid border-white border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
@@ -59,7 +60,7 @@ export default function DevSummary() {
                         >Loading...</span>
                     </div>
                 ) : null}
-                {userSummary ? (
+                {userSummary&& !loading ? (
                     <div className="text-[#FAF0E6] border-[#FAF0E6] justify-center">
                         <h1 className='text-2xl text-center'><strong>Summary of {username}</strong></h1>
                         <p className='my-1'>{userSummary.summary}</p>

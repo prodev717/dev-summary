@@ -11,7 +11,7 @@ export default function NavBar() {
         {id: 1,text: 'DevInfo', link: '/devinfo', icon: devicon},
         {id: 2,text: 'RepoInfo', link: '/repoinfo', icon: repoicon},
         {id: 3,text: 'Q&A', link: '#', icon: qnaicon},
-        {id: 4,text: 'API Docs', link: '#', icon: docsicon},
+        {id: 4,text: 'API Docs', link: '/apidocs', icon: docsicon},
     ];
 
     const navLinksStyle = 'text-[#FAF0E6] text-md px-3 py-2 hover:bg-slate-600 rounded flex items-center gap-2 transition duration-300';

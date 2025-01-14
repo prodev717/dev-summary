@@ -14,7 +14,7 @@ export default function HeroSection() {
                         <img src={github} alt="" className='sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40'/>
                     </div>
                 </div>
-                <div className='mx-auto mt-7 flex flex-col justify-center items-center'>
+                <div className='mx-auto mt-3 flex flex-col justify-center items-center'>
                     <p className='text-xl font-poppins mb-4 motion-preset-typewriter-[9] motion-duration-[7s]'>See Demos</p>
                     <button>
                         <img src={arrow} alt="" className='w-12 h-12 motion-loop-infinite motion-translate-y-loop-25'/>

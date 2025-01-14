@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Landing from '../../pages/Landing';
 import DevInfo from '../../pages/DevInfo';
 import RepoInfo from '../../pages/RepoInfo';
+import APIdocs from '../../pages/APIdocs';
 
 export default function Navigator() {
     const location = useLocation();
@@ -28,6 +29,7 @@ export default function Navigator() {
             <Route path="/" element={<Landing />} />
             <Route path="/devinfo" element={<DevInfo />} />
             <Route path="/repoinfo" element={<RepoInfo />} />
+            <Route path='/apidocs' element={<APIdocs />} />
         </Routes>
     );
 };

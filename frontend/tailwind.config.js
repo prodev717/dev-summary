@@ -13,6 +13,7 @@ export default {
     extend: {
       fontFamily: {
         'poppins': ['Poppins'],
+        'noto-sans': ['Noto Sans'],
       }
     },
   },

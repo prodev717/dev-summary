@@ -4,6 +4,7 @@ import Landing from '../../pages/Landing';
 import DevInfo from '../../pages/DevInfo';
 import RepoInfo from '../../pages/RepoInfo';
 import APIdocs from '../../pages/APIdocs';
+import Qna from '../../pages/QnA';
 
 export default function Navigator() {
     const location = useLocation();
@@ -15,6 +16,9 @@ export default function Navigator() {
                 break;
             case '/repoinfo':
                 document.title = 'RepoInfo';
+                break;
+            case '/qna':
+                document.title = 'Q&A';
                 break;
             case '/apidocs':
                 document.title = 'API Documentation';
@@ -30,6 +34,7 @@ export default function Navigator() {
             <Route path="/devinfo" element={<DevInfo />} />
             <Route path="/repoinfo" element={<RepoInfo />} />
             <Route path='/apidocs' element={<APIdocs />} />
+            <Route path='/qna' element={<Qna />} />
         </Routes>
     );
 };

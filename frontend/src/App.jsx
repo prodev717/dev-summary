@@ -10,7 +10,7 @@ export default function App() {
       <BrowserRouter> 
           <Navigator />
       </BrowserRouter>
-      <Footer />
+      {window.location.pathname !== '/qna' && <Footer />}
     </>
   );
 }

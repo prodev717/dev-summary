@@ -10,13 +10,13 @@ export default function NavBar() {
     const navLinks = [
         {id: 1,text: 'DevInfo', link: '/devinfo', icon: devicon},
         {id: 2,text: 'RepoInfo', link: '/repoinfo', icon: repoicon},
-        {id: 3,text: 'Q&A', link: '#', icon: qnaicon},
+        {id: 3,text: 'Q&A', link: '/qna', icon: qnaicon},
         {id: 4,text: 'API Docs', link: '/apidocs', icon: docsicon},
     ];
 
     const navLinksStyle = 'text-[#FAF0E6] text-md px-3 py-2 hover:bg-slate-600 rounded flex items-center gap-2 transition duration-300';
     const navLinksStyleMobile = 'text-[#FAF0E6] text-lg hover:bg-slate-600 flex items-center gap-2 transition duration-500 rounded px-1 py-1';
-    const navLinksContainerStyleMobile = 'flex-col md:hidden sm:w-[50%] p-2 rounded border-[1px] absolute top-14 right-4 font-poppins bg-[#352F44] z-50';
+    const navLinksContainerStyleMobile = 'flex-col md:hidden sm:w-[50%] p-2 rounded border-[1px] fixed top-14 right-4 font-poppins bg-[#352F44] z-50';
 
     const navList = navLinks.map((navLink) => {
         return (
@@ -31,7 +31,7 @@ export default function NavBar() {
     
     return (
         <>
-            <nav className='fixed top-0 left-0 w-full bg-[#352F44] p-5 font-poppins border-b-[1px] border-b-white z-50'>
+            <nav className='fixed top-0 left-0 w-full bg-[#352F44] px-5 py-2 font-poppins border-b-[1px] border-b-white z-50'>
                 <div className='flex items-center justify-between'>
                     <a href='/'>
                         <span className='text-[#FAF0E6] text-2xl font-semibold ml-3'>Git2Know</span>

@@ -2,7 +2,7 @@
 
 export default function Footer() {
     return (
-        <div className='w-[100%] h-20'>
-        </div>
+        <footer className='w-[100%] h-2'>
+        </footer>
     )
 }

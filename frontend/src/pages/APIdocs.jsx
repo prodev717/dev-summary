@@ -3,8 +3,8 @@
 
 export default function APIdocs() {
     return(
-        <div className='min-h-[100vh] flex flex-col items-center pt-[80px] pb-[30px] font-poppins text-[#FAF0E6]'>
-            <div className='mt-10 mb-10 sm:w-[85%]'>
+        <div className='min-h-[100vh] flex flex-col items-center pt-[50px] pb-[30px] font-poppins text-[#FAF0E6]'>
+            <div className='mt-10 mb-10 w-[100%] flex flex-col items-center'>
                 <h1 className='w-[90%] sm:text-3xl lg:text-5xl text-left'>API Documentation</h1>
                 <hr className='bg-[#FAF0E6] w-[90%] my-5'/>
                 <div className='w-[90%]'>
@@ -27,7 +27,7 @@ export default function APIdocs() {
                     </ul>
                     <h2 className='text-xl font-semibold w-[100%] text-left my-5'>Response</h2>
                     <p className='my-2'><strong>200 OK</strong>: Returns a JSON object containing the developer's Github profile summary.</p>
-                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono">
+                    <div className="bg-[#5C5470] my-5 mx-auto py-2 px-3 rounded-lg font-mono">
                         <div><span>{`{`}</span></div>
                         <div className="ml-4">
                             <span className="text-orange-500">{`"summary"`}</span>

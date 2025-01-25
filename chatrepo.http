@@ -1,0 +1,8 @@
+POST http://127.0.0.1:8000/chatrepo
+Content-Type: application/json
+
+{
+    "username":"muhammadsajidy",
+    "repository":"BankHive",
+    "prompt":"explain this project."
+}

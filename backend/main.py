@@ -1,14 +1,16 @@
-from flask import Flask
+from flask import Flask,request
 from flask_cors import CORS
 import requests
 import json
 import base64
 from dotenv import load_dotenv
 import os
+import json
 
 load_dotenv()
 GEMINI = os.getenv("GEMINI_API_KEY")
 GITHUB = os.getenv("GITHUB_API_KEY")
+session = {}
 
 def getUserData(username):
     try:
@@ -120,6 +122,72 @@ def devsummary(username):
 @app.route("/repoinfo/<username>/<reponame>")
 def reposummary(username,reponame):
     return {"summary":aiResponseRepo(username,reponame)}
+
+@app.route("/load/<username>")
+def loadprofile(username):
+    repos = getUserData(username)
+    if repos:
+        session[username] = repos
+        return "Data loaded"
+    else:
+        return "Error fetching data from GitHub"
+
+@app.route("/load/<username>/<reponame>")
+def loadrepo(username,reponame):
+    readme = getRepoData(username,reponame)
+    if readme:
+        session[username+"/"+reponame] = readme
+        return "Data loaded"
+    else:
+        return "Error fetching data from GitHub"
+    
+@app.route("/chatdev", methods=["POST"])
+def chatUser():
+    data = request.get_json()
+    if session[data["username"]]:
+        try:    
+            api = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI}"
+            headers = {"Content-Type": "application/json"}
+            prompt0 = "\n data of a developer is given, ansewer below question \n"
+            response = requests.post(
+                api,
+                headers=headers,
+                json={"contents": [{"parts": [{"text": json.dumps(session[data["username"]])+prompt0+data["prompt"]}]}]}
+            )
+            if response.status_code == 200:
+                return response.json()["candidates"][0]["content"]["parts"][0]["text"]
+            else:
+                print(f"AI API error: {response.status_code} - {response.text}")
+                return "Error generating AI response. Try again later."
+        except Exception as e:
+            print(f"Error with AI API: {e}")
+            return "Error generating AI response. Try again later."
+    else:
+        return "Error fetching repository data. Check the GitHub username and try again."
+    
+@app.route("/chatrepo", methods=["POST"])
+def chatRepo():
+    data = request.get_json()
+    if session[data["username"]+"/"+data["repository"]]:
+        try:    
+            api = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI}"
+            headers = {"Content-Type": "application/json"}
+            prompt0 = "\n data of a project is given, ansewer below question \n"
+            response = requests.post(
+                api,
+                headers=headers,
+                json={"contents": [{"parts": [{"text": json.dumps(session[data["username"]+"/"+data["repository"]])+prompt0+data["prompt"]}]}]}
+            )
+            if response.status_code == 200:
+                return response.json()["candidates"][0]["content"]["parts"][0]["text"]
+            else:
+                print(f"AI API error: {response.status_code} - {response.text}")
+                return "Error generating AI response. Try again later."
+        except Exception as e:
+            print(f"Error with AI API: {e}")
+            return "Error generating AI response. Try again later."
+    else:
+        return "Error fetching repository data. Check the GitHub username and try again."
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=8000,debug=True)

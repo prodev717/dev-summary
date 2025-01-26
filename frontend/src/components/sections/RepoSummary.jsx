@@ -24,6 +24,18 @@ export default function RepoSummary() {
         });
     };
 
+    const handleDownload = () => {
+        const blob = new Blob([repoSummary.summary], {type: 'text/plain'})
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Summary.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <div className="w-screen max-w-full flex flex-col items-center mt-2">
             <div className="sm:w-[85%] h-16 lg:w-[60%] bg-[#5C5470] rounded-lg border-[#FAF0E6] border-4 flex flex-col justify-center items-center motion-preset-fade motion-duration-[2.5s]">
@@ -68,9 +80,15 @@ export default function RepoSummary() {
                     </div>
                 ) : null}
                 {repoSummary && !loading ? (
-                    <div className="text-[#FAF0E6] border-[#FAF0E6] justify-center">
+                    <div className="text-[#FAF0E6] border-[#FAF0E6] flex flex-col items-center">
                         <h1 className='text-2xl text-center'><strong>Summary of {repository}</strong></h1>
                         <p className='my-1'>{repoSummary.summary}</p>
+                        <button
+                            className="sm:w-[25%] lg:w-[20%] sm:text-md lg:text-lg h-10 py-1 px-2 my-2 bg-[#B9B4C7] text-[#FAF0E6] rounded-lg border-[#FAF0E6] border-2"
+                           onClick={handleDownload} 
+                        >
+                            Download
+                        </button>
                     </div>
                 ) : (
                     <p className="text-[#FAF0E6] text-md">

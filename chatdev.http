@@ -1,0 +1,7 @@
+POST http://127.0.0.1:8000/chatdev
+Content-Type: application/json
+
+{
+    "username":"muhammadsajidy",
+    "prompt":"does he capable of game development?"
+}

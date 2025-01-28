@@ -1,22 +1,21 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function DevSummary() {
     const [username, setUsername] = useState('');
     const [userSummary, setUserSummary] = useState(null); 
     const [loading, setLoading] = useState(false);
 
-    const handleSummary = () => {
-        fetch(` http://localhost:8000/devinfo/${username}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
+    async function handleSummary() {
+        await axios.get(
+            `http://localhost:8000/devinfo/${username}`,
+            {
+                headers: {'Content-Type': 'application/json'}
             }
-        })
-        .then(res => res.json())
+        )
         .then(data => {
             setLoading(false);
-            setUserSummary(data); 
-            
+            setUserSummary(data.data); 
         })
         .catch((error) => {
             setLoading(false);
@@ -24,7 +23,7 @@ export default function DevSummary() {
         });
     };
 
-    const handleDownload = () => {
+    function handleDownload() {
         const blob = new Blob([userSummary.summary], {type: 'text/plain'})
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');

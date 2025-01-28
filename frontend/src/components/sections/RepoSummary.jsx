@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios';
 
 export default function RepoSummary() {
     const [username, setUsername] = useState('');
@@ -6,17 +7,16 @@ export default function RepoSummary() {
     const [repoSummary, setRepoSummary] = useState(null); 
     const [loading, setLoading] = useState(false);
 
-    const handleSummary = () => {
-        fetch(`http://localhost:8000/repoinfo/${username}/${repository}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
+    function handleSummary() {
+        axios.get(
+            `http://localhost:8000/repoinfo/${username}/${repository}`,
+            {
+                headers: { 'Content-Type': 'application/json' } 
             }
-        })
-        .then(res => res.json())
+        )
         .then(data => {
             setLoading(false);
-            setRepoSummary(data); 
+            setRepoSummary(data.data); 
         })
         .catch((error) => {
             setLoading(false);
@@ -24,7 +24,7 @@ export default function RepoSummary() {
         });
     };
 
-    const handleDownload = () => {
+    function handleDownload() {
         const blob = new Blob([repoSummary.summary], {type: 'text/plain'})
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');

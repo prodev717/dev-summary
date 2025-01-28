@@ -31,7 +31,7 @@ export default function NavBar() {
     
     return (
         <>
-            <nav className='fixed top-0 left-0 w-full bg-[#352F44] px-5 py-2 font-poppins border-b-[1px] border-b-white z-50'>
+            <nav className='fixed top-0 left-0 w-full bg-[#352F44] px-5 py-3 font-poppins border-b-[1px] border-b-white z-50'>
                 <div className='flex items-center justify-between'>
                     <a href='/'>
                         <span className='text-[#FAF0E6] text-2xl font-semibold ml-3'>Git2Know</span>

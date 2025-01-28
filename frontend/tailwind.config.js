@@ -21,6 +21,7 @@ export default {
   plugins: [
     require('tailwindcss-motion'),
     require('@tailwindcss/typography'),
+    require('tailwind-scrollbar'),
   ]
 }
 

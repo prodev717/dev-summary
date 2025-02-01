@@ -1,4 +1,4 @@
-from flask import Flask,request
+from flask import Flask,request,jsonify
 from flask_cors import CORS
 import requests
 import json
@@ -6,11 +6,13 @@ import base64
 from dotenv import load_dotenv
 import os
 import json
+import redis
 
 load_dotenv()
 GEMINI = os.getenv("GEMINI_API_KEY")
 GITHUB = os.getenv("GITHUB_API_KEY")
-session = {}
+REDIS = os.getenv("REDIS_URL")
+session = redis.Redis.from_url(REDIS)
 
 def getUserData(username):
     try:
@@ -68,10 +70,10 @@ def aiResponseUser(username):
                 return response.json()["candidates"][0]["content"]["parts"][0]["text"]
             else:
                 print(f"AI API error: {response.status_code} - {response.text}")
-                return "Error generating AI response. Try again later."
+                return f"Error generating AI response. Status code: {response.status_code}. Details: {response.text}"
         except Exception as e:
             print(f"Error with AI API: {e}")
-            return "Error generating AI response. Try again later."
+            return f"Error generating AI response. Exception : {e}"
     else:
         return "Error fetching repository data. Check the GitHub username and try again."
     
@@ -105,10 +107,10 @@ def aiResponseRepo(username,reponame):
                 return response.json()["candidates"][0]["content"]["parts"][0]["text"]
             else:
                 print(f"AI API error: {response.status_code} - {response.text}")
-                return "Error generating AI response. Try again later."
+                return f"Error generating AI response. Status code: {response.status_code}. Details: {response.text}"
         except Exception as e:
             print(f"Error with AI API: {e}")
-            return "Error generating AI response. Try again later."
+            return f"Error generating AI response. Exception : {e}"
     else:
         return "Error fetching repository data. Check the GitHub username and reponame again."    
 
@@ -127,24 +129,35 @@ def reposummary(username,reponame):
 def loadprofile(username):
     repos = getUserData(username)
     if repos:
-        session[username] = repos
-        return "Data loaded"
+        try:
+            session.set(username,json.dumps(repos),600)
+            return jsonify({"message": "Data loaded successfully"}), 200
+        except Exception as e:
+            print(f"Error caching data: {e}")
+            return jsonify({"error": "Internal Server Error", "message": "Failed to cache data."}), 500
     else:
-        return "Error fetching data from GitHub"
+        return jsonify({"error": "Not Found", "message": "GitHub user not found."}), 404
 
 @app.route("/load/<username>/<reponame>")
 def loadrepo(username,reponame):
     readme = getRepoData(username,reponame)
     if readme:
-        session[username+"/"+reponame] = readme
-        return "Data loaded"
+        try:
+            session.set(username+"/"+reponame,json.dumps(readme),600)
+            return jsonify({"message": "Data loaded successfully"}), 200
+        except Exception as e:
+            print(f"Error caching data: {e}")
+            return jsonify({"error": "Internal Server Error", "message": "Failed to cache data."}), 500
     else:
-        return "Error fetching data from GitHub"
+        return jsonify({"error": "Not Found", "message": "GitHub user not found or repositories unavailable."}), 404
     
 @app.route("/chatdev", methods=["POST"])
 def chatUser():
     data = request.get_json()
-    if session[data["username"]]:
+    if not data or "username" not in data or "prompt" not in data:
+        return jsonify({"error": "Bad Request", "message": "Missing 'username' or 'prompt' in request body."}), 400
+    dev = session.get(data["username"])
+    if dev:
         try:    
             api = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI}"
             headers = {"Content-Type": "application/json"}
@@ -152,23 +165,26 @@ def chatUser():
             response = requests.post(
                 api,
                 headers=headers,
-                json={"contents": [{"parts": [{"text": json.dumps(session[data["username"]])+prompt0+data["prompt"]}]}]}
+                json={"contents": [{"parts": [{"text": dev.decode()+prompt0+data["prompt"]}]}]}
             )
             if response.status_code == 200:
-                return response.json()["candidates"][0]["content"]["parts"][0]["text"]
+                return response.json()["candidates"][0]["content"]["parts"][0]["text"], 200
             else:
                 print(f"AI API error: {response.status_code} - {response.text}")
-                return "Error generating AI response. Try again later."
+                return jsonify({"error": "AI API Error", "message": f"Status code: {response.status_code}. Details: {response.text}"}), 500
         except Exception as e:
-            print(f"Error with AI API: {e}")
-            return "Error generating AI response. Try again later."
+            print(f"Error with Internal Server: {e}")
+            return jsonify({"error": "Internal Server Error", "message": f"Exception: {e}"}), 500
     else:
-        return "Error fetching repository data. Check the GitHub username and try again."
+        return jsonify({"error": "Not Found", "message": "No cached data found for the given username."}), 404
     
 @app.route("/chatrepo", methods=["POST"])
 def chatRepo():
     data = request.get_json()
-    if session[data["username"]+"/"+data["repository"]]:
+    if not data or "username" not in data or "prompt" not in data or "repository" not in data:
+        return jsonify({"error": "Bad Request", "message": "Missing 'username','repository' or 'prompt' in request body."}), 400
+    repo = session.get(data["username"]+"/"+data["repository"])
+    if repo:
         try:    
             api = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI}"
             headers = {"Content-Type": "application/json"}
@@ -176,18 +192,18 @@ def chatRepo():
             response = requests.post(
                 api,
                 headers=headers,
-                json={"contents": [{"parts": [{"text": json.dumps(session[data["username"]+"/"+data["repository"]])+prompt0+data["prompt"]}]}]}
+                json={"contents": [{"parts": [{"text": repo.decode()+prompt0+data["prompt"]}]}]}
             )
             if response.status_code == 200:
-                return response.json()["candidates"][0]["content"]["parts"][0]["text"]
+                return response.json()["candidates"][0]["content"]["parts"][0]["text"], 200
             else:
                 print(f"AI API error: {response.status_code} - {response.text}")
-                return "Error generating AI response. Try again later."
+                return jsonify({"error": "AI API Error", "message": f"Status code: {response.status_code}. Details: {response.text}"}), 500
         except Exception as e:
-            print(f"Error with AI API: {e}")
-            return "Error generating AI response. Try again later."
+            print(f"Error with Internal Server: {e}")
+            return jsonify({"error": "Internal Server Error", "message": f"Exception: {e}"}), 500
     else:
-        return "Error fetching repository data. Check the GitHub username and try again."
+        return jsonify({"error": "Not Found", "message": "No cached data found for the given username/repository ."}), 404
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=8000,debug=True)

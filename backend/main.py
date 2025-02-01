@@ -25,7 +25,9 @@ def getUserData(username):
                     "description":x["description"],
                     "language":x["language"],
                     "topics":x["topics"],
-                    "readme":None
+                    "created_at":x["created_at"],
+                    "updated_at":x["updated_at"],
+                    "readme":None                    
                 } 
                 for x in response
             }

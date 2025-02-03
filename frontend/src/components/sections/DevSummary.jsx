@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { FaRegCopy } from "react-icons/fa";
 
 export default function DevSummary() {
     const [username, setUsername] = useState('');
@@ -23,21 +24,9 @@ export default function DevSummary() {
         });
     };
 
-    function handleDownload() {
-        const blob = new Blob([userSummary.summary], {type: 'text/plain'})
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'Summary.txt';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-    };
-
     return (
         <div className="w-screen max-w-full flex flex-col items-center mt-2">
-            <div className="sm:w-[85%] h-16 lg:w-[60%] bg-[#5C5470] rounded-lg border-[#FAF0E6] border-4 flex flex-col justify-center items-center motion-preset-fade motion-duration-[2.5s]">
+            <div className="sm:w-[85%] h-16 lg:w-[60%] bg-black rounded-lg border-[#FAF0E6] border-4 flex flex-col justify-center items-center motion-preset-fade motion-duration-[2.5s]">
                 <div className="w-[100%] px-2 flex items-center justify-between">
                     <input
                         type="text"
@@ -46,7 +35,7 @@ export default function DevSummary() {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <button
-                        className="sm:w-[25%] lg:w-[20%] sm:text-md lg:text-lg h-10 py-1 px-2 bg-[#B9B4C7] text-[#FAF0E6] rounded-lg border-[#FAF0E6] border-2"
+                        className="text-md h-10 py-2 px-4 bg-white text-black rounded-lg border-black border-2"
                         onClick={() => {
                             if (!username) {
                                 alert('Please provide the username');
@@ -61,7 +50,7 @@ export default function DevSummary() {
                     </button>
                 </div>
             </div>
-            <div className="sm:w-[85%] lg:w-[60%] mb-10 h-fit bg-[#5C5470] rounded-lg border-[#FAF0E6] border-4 mt-10 flex flex-col justify-center items-center px-2 py-2 motion-preset-fade motion-duration-[2.5s]">
+            <div className="sm:w-[85%] lg:w-[60%] mb-10 h-fit bg-blac text-white rounded-lg border-[#FAF0E6] border-4 mt-10 flex flex-col justify-center items-center px-2 py-2 motion-preset-fade motion-duration-[2.5s]">
                 {loading ? (
                     <div
                     className="inline-block h-12 w-12 mb-4 animate-spin rounded-full border-4 border-solid border-white border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
@@ -73,13 +62,14 @@ export default function DevSummary() {
                 ) : null}
                 {userSummary&& !loading ? (
                     <div className="text-[#FAF0E6] border-[#FAF0E6] flex flex-col items-center">
-                        <h1 className='text-2xl text-center'><strong>Summary of {username}</strong></h1>
+                        <h1 className='text-2xl text-center'><strong>Summary</strong></h1>
                         <p className='my-1'>{userSummary.summary}</p>
                         <button
-                            className="sm:w-[25%] lg:w-[20%] sm:text-md lg:text-lg h-10 py-1 px-2 my-2 bg-[#B9B4C7] text-[#FAF0E6] rounded-lg border-[#FAF0E6] border-2"
-                           onClick={handleDownload} 
+                            className="w-fit flex gap-2 sm:text-md lg:text-lg h-10 py-1 px-2 my-2 bg-black text-white rounded-lg border-[#FAF0E6] border-2"
+                            onClick={() => {navigator.clipboard.writeText(userSummary.summary)}}
                         >
-                            Download
+                            <FaRegCopy className='h-7 w-5'/>
+                            <p>Copy</p>
                         </button>
                     </div>
                 ) : (

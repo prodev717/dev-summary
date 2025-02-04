@@ -16,8 +16,8 @@ export default function NavBar() {
         {id: 5, text: 'API Docs', link: '/apidocs', icon: docsicon},
     ];
 
-    const navLinksStyle = 'text-[#FAF0E6] text-md px-3 py-2 rounded flex items-center gap-2 transition duration-300 group';
-    const navLinksStyleMobile = 'text-[#FAF0E6] text-lg  flex items-center gap-2 transition duration-500 rounded px-1 py-1 group';
+    const navLinksStyle = 'text-white text-md px-3 py-2 rounded flex items-center gap-2 transition duration-300 group';
+    const navLinksStyleMobile = 'text-white text-lg  flex items-center gap-2 transition duration-500 rounded px-1 py-1 group';
     
     const navList = navLinks.map((navLink) => {
         return (
@@ -35,7 +35,7 @@ export default function NavBar() {
             <nav className='fixed top-0 left-0 w-full bg-black px-5 py-3 font-poppins z-50'>
                 <div className='flex items-center justify-center'>
                     <div className='md:hidden fixed top-4 left-5'>
-                        <button className='text-[#FAF0E6]' onClick={() => setIsOpen(!isOpen)} >
+                        <button className='text-white' onClick={() => setIsOpen(!isOpen)} >
                             <svg fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' className='w-8 h-8'>
                                 <path d='M4 6h16M4 12h16M4 18h16'></path>
                             </svg>

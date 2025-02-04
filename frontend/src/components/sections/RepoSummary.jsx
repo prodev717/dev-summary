@@ -8,8 +8,8 @@ export default function RepoSummary() {
     const [repoSummary, setRepoSummary] = useState(null); 
     const [loading, setLoading] = useState(false);
 
-    function handleSummary() {
-        axios.get(
+    async function handleSummary() {
+        await axios.get(
             `http://localhost:8000/repoinfo/${username}/${repository}`,
             {
                 headers: { 'Content-Type': 'application/json' } 

@@ -60,14 +60,14 @@ export default function Qna() {
                 <label htmlFor="Toggle3" className="inline-flex items-center rounded cursor-pointer dark:text-gray-100">
                     <input id="Toggle3" type="checkbox" className="hidden peer" />
                     <span 
-                    className="px-4 py-2 rounded-l-md text-[#5C5470] dark:bg-[#FAF0E6] peer-checked:dark:bg-[#352F44] peer-checked:text-[#FAF0E6]" 
+                    className="px-4 py-2 rounded-l-md text-black dark:bg-white peer-checked:dark:bg-black peer-checked:text-white" 
                     onClick={() => {
                         setMode('dev');
                         handleReset();
                     }}
                     >Dev</span>
                     <span 
-                    className="px-4 py-2 rounded-r-md dark:bg-[#352F44] peer-checked:dark:bg-[#FAF0E6] peer-checked:text-[#352F44]"
+                    className="px-4 py-2 rounded-r-md dark:bg-black peer-checked:dark:bg-white peer-checked:text-black"
                     onClick={() => {
                         setMode('repo');
                         handleReset();
@@ -75,19 +75,19 @@ export default function Qna() {
                     >Repo</span>
                 </label>
             </div>
-            <div className='sm:w-[90%] lg:w-[75%] h-[70%] scrollbar-thin scrollbar-thumb-[#FAF0E6] scrollbar-track-[#5C5470] overflow-y-auto mb-40 py-3 px-2 flex flex-col'>
+            <div className='sm:w-[90%] lg:w-[75%] h-[70%] scrollbar-thin scrollbar-thumb-white scrollbar-track-black overflow-y-auto mb-40 py-3 px-2 flex flex-col'>
                 {conversations.map((conv, index) => (
                     <div key={index} className='w-[100%] my-2 flex flex-col'>
                         <div className='w-100%'>
-                            <p className='bg-[#5C5470] text-[#FAF0E6] rounded-md px-3 py-2 float-right'>{conv.query}</p>
+                            <p className='bg-black text-white rounded-md px-3 py-2 float-right'>{conv.query}</p>
                         </div>
                         <div className='w-[100%] my-3'>
-                            <p className='bg-[#5C5470] text-[#FAF0E6] rounded-md px-3 py-2 float-left max-w-[50%]'>{conv.response}</p>
+                            <p className='bg-black text-white rounded-md px-3 py-2 float-left max-w-[50%]'>{conv.response}</p>
                         </div>
                     </div>
                 ))}
             </div>
-            <div className="h-fit sm:w-[90%] lg:w-[55%] bg-[#5C5470] text-[#FAF0E6] rounded-md border-[#FAF0E6] border-2 bottom-7 fixed flex flex-col justify-between py-2">
+            <div className="h-fit sm:w-[90%] lg:w-[55%] bg-black text-white rounded-md border-white border-2 bottom-7 fixed flex flex-col justify-between py-2">
                 <div className='w-[100%] min-h-5 flex items-center'>
                     <textarea
                         value={query}
@@ -123,12 +123,12 @@ export default function Qna() {
                         />
                     </>}
                     <button 
-                    className='ml-auto mt-1 bg-[#FAF0E6] text-[#5C5470] hover:bg-[#5C5470] hover:text-[#FAF0E6] border-[1.5px] border-[#FAF0E6] px-3 py-1 rounded'
+                    className='ml-auto mt-1 bg-white text-black hover:bg-black hover:text-white border-[1.5px] border-white px-3 py-1 rounded'
                     onClick={() => {mode === 'dev' ? handleSet(username) : handleSet(username, repository)}}>
                         Set
                     </button>
                     <button
-                    className='mt-1 bg-[#FAF0E6] text-[#5C5470] hover:bg-[#5C5470] hover:text-[#FAF0E6] border-[1.5px] border-[#FAF0E6] px-3 py-1 rounded'
+                    className='mt-1 bg-white text-black hover:bg-black hover:text-white border-[1.5px] border-white px-3 py-1 rounded'
                     onClick={() => {
                         if (query && username) handleSubmitQuery();
                         else alert('Please enter all details');

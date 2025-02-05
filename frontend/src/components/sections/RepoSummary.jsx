@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import axios from 'axios';
-import { FaRegCopy } from "react-icons/fa";
+import { TbNotes } from 'react-icons/tb';
+import { FaRegCopy } from 'react-icons/fa';
+import { RiResetLeftFill } from 'react-icons/ri';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function RepoSummary() {
     const [username, setUsername] = useState('');
@@ -25,66 +28,133 @@ export default function RepoSummary() {
         });
     };
 
+    function detailsEmptyNotification() {
+        toast('Please enter all details!', { 
+            toastId: 'emptydetails',
+            closeOnClick: true,
+            pauseOnHover: false,
+            className: 'top-17 left-1 shadow-sm shadow-white'
+        });
+    };
+
+    function copySummaryNotification() {
+        toast('Copied successfully!', { 
+            toastId: 'copied',
+            closeOnClick: true,
+            pauseOnHover: false,
+            className: 'top-15 shadow-sm shadow-white'
+        });
+    };
+
     return (
-        <div className="w-screen max-w-full flex flex-col items-center mt-2">
-            <div className="sm:w-[85%] h-16 lg:w-[60%] bg-black rounded-lg border-[#FAF0E6] border-4 flex flex-col justify-center items-center motion-preset-fade motion-duration-[2.5s]">
-                <div className="w-[100%] px-2 flex items-center justify-between">
-                    <input
-                        type="text"
-                        placeholder="Enter a github username"
-                        className="sm:w-[35%] text-center border-b-white border-b-[1px] lg:w-[35%] sm:text-sm lg:text-lg h-10 py-1 px-2 bg-transparent my-5 text-[#FAF0E6] placeholder-[#FAF0E6] outline-none"
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <p className='text-[#FAF0E6] text-2xl'>/</p>
-                    <input
-                        type="text"
-                        placeholder="Enter a repository name"
-                        className="sm:w-[35%] text-center border-b-white border-b-[1px] lg:w-[40%] sm:text-sm lg:text-lg h-10 py-1 px-2 bg-transparent my-5 text-[#FAF0E6] placeholder-[#FAF0E6] outline-none"
-                        onChange={(e) => setRepository(e.target.value)}
-                    />
-                    <button
-                        className="text-md h-10 py-2 px-4 bg-white text-black rounded-lg border-black border-2"
-                        onClick={() => {
-                            if (!username || !repository) {
-                                alert('Please provide both username and repository');
-                                return;
-                            };
-                            handleSummary();
-                            setLoading(true);
-                        }}
-                        disabled={loading}
-                    >
-                        Summarize
-                    </button>
-                </div>
-            </div>
-            <div className="sm:w-[85%] lg:w-[60%] h-fit bg-black rounded-lg border-[#FAF0E6] border-4 mt-10 flex flex-col justify-center items-center px-2 py-2 motion-preset-fade motion-duration-[2.5s]">
-                {loading ? (
-                    <div
-                    className="inline-block h-12 w-12 mb-4 animate-spin rounded-full border-4 border-solid border-white border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                    role="status">
-                        <span
-                        className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-                        >Loading...</span>
+        <div className="w-screen max-w-full flex flex-col items-center mt-7">
+            <div className="sm:w-[85%] h-fit lg:w-[60%] bg-black rounded-lg border-white border-4 flex flex-col motion-preset-fade motion-duration-[2.5s]">
+                <div className="w-[100%] h-fit flex sm:flex-col lg:flex-row border-white border-b-2">
+                    <div className="h-[100%] sm:w-[100%] lg:w-[75%] flex">
+                        <input
+                            id="username"
+                            type="text"
+                            placeholder="GitHub username"
+                            className="sm:w-[50%] lg:w-[50%] text-center sm:text-sm lg:text-lg h-10 py-1 px-2 bg-transparent border-white border-2 text-white placeholder-white outline-none"
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                        <input
+                            id="repository"
+                            type="text"
+                            placeholder="Repository name"
+                            className="sm:w-[50%] lg:w-[50%] text-center sm:text-sm lg:text-lg h-10 py-1 px-2 bg-transparent border-white border-2 text-white placeholder-white outline-none"
+                            onChange={(e) => setRepository(e.target.value)}
+                        />
                     </div>
-                ) : null}
-                {repoSummary && !loading ? (
-                    <div className="text-[#FAF0E6] border-[#FAF0E6] flex flex-col items-center">
-                        <h1 className='text-2xl text-center'><strong>Summary of {repository}</strong></h1>
-                        <p className='my-1'>{repoSummary.summary}</p>
+                    <div className='flex sm:w-[100%] lg:w-fit'>
                         <button
-                            className="w-fit flex gap-2 sm:text-md lg:text-lg h-10 py-1 px-2 my-2 bg-black text-white rounded-lg border-[#FAF0E6] border-2"
-                            onClick={() => {navigator.clipboard.writeText(repoSummary.summary)}}
+                            className="sm:w-[36%] lg:w-fit flex sm:text-md lg:text-md h-10 py-1 px-2 bg-black text-white border-white border-2 enabled:hover:bg-white enabled:hover:text-black"
+                            onClick={() => {
+                                if (!username || !repository) {
+                                    detailsEmptyNotification();
+                                    return;
+                                };
+                                handleSummary();
+                                setLoading(true);
+                            }}
+                            disabled={loading}
                         >
+                            <ToastContainer 
+                                autoClose={1000}
+                                theme="dark"
+                                hideProgressBar
+                                position='bottom-left'
+                            />
+                            {!loading ? 
+                            (<>
+                                <TbNotes className='h-7 w-7'/>
+                                <p>Summarize</p>
+                             </>) :
+                            <div className='flex items-center gap-2 h-[100%]'>
+                                <div
+                                    className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-solid border-white border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                    role="status">
+                                        <span
+                                        className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                                        >Loading...</span>
+                                </div>
+                                <p>Fetching</p>
+                            </div>}
+                        </button>
+                        <button
+                            className="sm:w-[32%] lg:w-fit flex gap-2 sm:text-md lg:text-lg h-10 py-1 px-2 bg-black text-white border-white border-2 enabled:hover:bg-white enabled:hover:text-black"
+                            onClick={() => {
+                                navigator.clipboard.writeText(repoSummary.summary);
+                                copySummaryNotification();
+                            }}
+                            disabled={(!username || !repository) || !repoSummary || loading}
+                        >
+                            <ToastContainer 
+                                autoClose={1000}
+                                position='bottom-left'
+                                theme="dark"
+                                hideProgressBar
+                            />
                             <FaRegCopy className='h-7 w-5'/>
                             <p>Copy</p>
                         </button>
+                        <button
+                            className="sm:w-[32%] lg:w-fit flex gap-2 sm:text-md lg:text-lg h-10 py-1 px-2 bg-black text-white border-white border-2 enabled:hover:bg-white enabled:hover:text-black"
+                            onClick={() => {
+                                setUsername('');
+                                setRepository('');
+                                setRepoSummary('');
+                                setLoading(false);
+                                document.getElementById('username').value = '';
+                                document.getElementById('repository').value = '';
+                            }}
+                            disabled={(!username && !repository) || !repoSummary || loading}
+                        >
+                            <RiResetLeftFill className='sm:h-7 sm:w-5'/>
+                            <p>Reset</p>
+                        </button>
                     </div>
-                ) : (
-                    <p className="text-[#FAF0E6] text-md">
-                        The summary of the repository will be displayed here
-                    </p>
-                )}
+                </div>
+                <div className="w-[97%] h-fit text-white text-md flex flex-col justify-center items-center px-2 py-2 motion-preset-fade motion-duration-[2.5s] my-5">
+                    {loading ? (
+                        <div
+                        className="inline-block h-12 w-12 mb-4 animate-spin rounded-full border-4 border-solid border-white border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                        role="status">
+                            <span
+                            className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                            >Loading...</span>
+                        </div>
+                    ) : null}
+                    {repoSummary && !loading ? (
+                        <div className="text-white border-white flex flex-col items-center">
+                            <p className='my-1'>{repoSummary.summary}</p>
+                        </div>
+                    ) : (
+                        <p className="text-white text-lg">
+                            The summary of the repository will be displayed here
+                        </p>
+                    )}
+                </div>
             </div>
         </div>
     );

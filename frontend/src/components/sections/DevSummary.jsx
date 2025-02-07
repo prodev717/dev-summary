@@ -4,6 +4,7 @@ import { FaRegCopy } from 'react-icons/fa';
 import { TbNotes } from 'react-icons/tb';
 import { RiResetLeftFill } from 'react-icons/ri';
 import { ToastContainer, toast } from 'react-toastify';
+import ReactMarkdown from 'react-markdown';
 
 
 export default function DevSummary() {
@@ -20,6 +21,7 @@ export default function DevSummary() {
         )
         .then(data => {
             setLoading(false);
+            console.log(data.data);
             setUserSummary(data.data); 
         })
         .catch((error) => {
@@ -124,10 +126,10 @@ export default function DevSummary() {
                         </button>
                     </div>
                 </div>
-                <div className="w-[97%] h-fit text-white text-md flex flex-col justify-center items-center px-2 py-2 motion-preset-fade motion-duration-[2.5s] my-5">
+                <div className="w-[97%] h-fit text-white text-md flex flex-col items-center motion-preset-fade motion-duration-[2.5s]">
                     {loading ? (
                         <div
-                        className="inline-block h-12 w-12 mb-4 animate-spin rounded-full border-4 border-solid border-white border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                        className="inline-block h-12 w-12 my-4 animate-spin rounded-full border-4 border-solid border-white border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                         role="status">
                             <span
                             className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
@@ -135,11 +137,11 @@ export default function DevSummary() {
                         </div>
                     ) : null}
                     {userSummary&& !loading ? (
-                        <div className="text-white border-white flex flex-col items-center">
-                            <p>{userSummary.summary}</p>
+                        <div className="w-[100%] text-white border-white flex flex-col prose sm:prose-lg lg:prose-2xl prose-h1:text-4xl prose-h1:text-white prose-p:text-lg prose-strong:text-white prose-ul:list-disc prose-ul:text-white">
+                            <ReactMarkdown className='w-[95%]'>{userSummary.summary}</ReactMarkdown>
                         </div>
                     ) : (
-                        <p className="text-white text-md text-lg">
+                        <p className="text-white text-md text-lg my-3 mx-2">
                             The summary of the user's GitHub profile will be displayed here
                         </p>
                     )}

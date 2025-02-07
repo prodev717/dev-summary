@@ -19,7 +19,7 @@ export default function NavBar() {
     ];
 
     const navLinksStyle = 'text-white text-md px-3 py-2 rounded flex items-center gap-2 transition duration-300 group';
-    const navLinksStyleMobile = 'text-white text-lg  flex items-center gap-2 transition duration-500 rounded px-1 py-1 group';
+    const navLinksStyleMobile = 'text-white text-lg flex items-center gap-2 transition duration-500 rounded px-1 py-1 group';
     
     const navList = navLinks.map((navLink) => {
         return (
@@ -34,9 +34,9 @@ export default function NavBar() {
     
     return (
         <>
-            <nav className='fixed top-0 left-0 w-full bg-black px-5 py-3 font-poppins z-50'>
+            <nav className={`fixed top-0 left-0 w-full h-fit px-5 py-3 font-poppins z-50 ${document.location.pathname === '/qna' ? 'bg-[#282929]' : 'bg-black'}`}>
                 <div className='flex items-center justify-center'>
-                    <div className='md:hidden fixed top-4 left-5'>
+                    <div className='md:hidden mr-auto mt-2'>
                         <button className='text-white' onClick={() => setIsOpen(!isOpen)} >
                             <svg fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' className='w-8 h-8'>
                                 <path d='M4 6h16M4 12h16M4 18h16'></path>

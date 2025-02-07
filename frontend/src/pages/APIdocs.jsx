@@ -15,19 +15,19 @@ export default function APIdocs() {
                         <li className='text-md mt-2'>Retrieve a detailed summary of a specific GitHub repository.</li>
                     </ul>
                     <h2 className='text-2xl font-bold w-[100%] text-left mt-7'>Base URL</h2>
-                    <p className='bg-[#5C5470] rounded w-fit p-1 text-md my-4'>https://git2know.com</p>
+                    <p className='bg-black rounded w-fit p-1 text-md my-4'>https://git2know.com</p>
                     <h2 className='text-2xl font-bold w-[100%] text-left mt-7'>Endpoints</h2>
                     <h2 className='text-xl font-bold w-[100%] text-left mt-7'>1. Developer Summary</h2>
-                    <p className='bg-[#5C5470] rounded w-fit p-1 text-md my-4'>GET /devinfo/{`<username>`}</p>
+                    <p className='bg-black rounded w-fit p-1 text-md my-4'>GET /devinfo/{`<username>`}</p>
                     <h2 className='text-xl font-semibold w-[100%] text-left my-5'>Description</h2>
                     <p className='text-md'>Fetches a summary of a developer's skills, experience, and expertise based on their public GitHub repositories.</p>
                     <h2 className='text-xl font-semibold w-[100%] text-left my-5'>Parameters</h2>
                     <ul className='list-disc ml-5 pl-5'>
-                        <li className='my-4'><p className='bg-[#5C5470] rounded w-fit p-1 text-md my-4 inline mr-[1px]'>username</p>:   The GitHub username of the developer.</li>
+                        <li className='my-4'><p className='bg-black rounded w-fit p-1 text-md my-4 inline mr-[1px]'>username</p>:   The GitHub username of the developer.</li>
                     </ul>
                     <h2 className='text-xl font-semibold w-[100%] text-left my-5'>Response</h2>
                     <p className='my-2'><strong>200 OK</strong>: Returns a JSON object containing the developer's Github profile summary.</p>
-                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
+                    <div className="bg-black my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
                         <div><span>{`{`}</span></div>
                         <div className="ml-4">
                             <span className="text-orange-500">{`"summary"`}</span>
@@ -37,7 +37,7 @@ export default function APIdocs() {
                         <div><span>{`}`}</span></div>
                     </div>
                     <p className='my-2'><strong>Error</strong>: If username is invalid or data fetching fails</p>
-                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
+                    <div className="bg-black my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
                         <div><span>{`{`}</span></div>
                         <div className="ml-4">
                             <span className="text-orange-500">{`"summary"`}</span>
@@ -47,17 +47,17 @@ export default function APIdocs() {
                         <div><span>{`}`}</span></div>
                     </div>
                     <h2 className='text-xl font-bold w-[100%] text-left mt-9'>2. Repository Summary</h2>
-                    <p className='bg-[#5C5470] rounded w-fit p-1 text-md my-4'>GET /devinfo/{`<username>`}/{`<repository>`}</p>
+                    <p className='bg-black rounded w-fit p-1 text-md my-4'>GET /devinfo/{`<username>`}/{`<repository>`}</p>
                     <h2 className='text-xl font-semibold w-[100%] text-left my-5'>Description</h2>
                     <p className='text-md'>Fetches a detailed description of the repository's README.md file.</p>
                     <h2 className='text-xl font-semibold w-[100%] text-left my-5'>Parameters</h2>
                     <ul className='list-disc ml-5 pl-5'>
-                        <li className='my-4'><p className='bg-[#5C5470] rounded w-fit p-1 text-md my-4 inline mr-[1px]'>username</p>:   The GitHub username of the developer.</li>
-                        <li className='my-4'><p className='bg-[#5C5470] rounded w-fit p-1 text-md my-4 inline mr-[1px]'>repository</p>:   Name of the repository.</li>
+                        <li className='my-4'><p className='bg-black rounded w-fit p-1 text-md my-4 inline mr-[1px]'>username</p>:   The GitHub username of the developer.</li>
+                        <li className='my-4'><p className='bg-black rounded w-fit p-1 text-md my-4 inline mr-[1px]'>repository</p>:   Name of the repository.</li>
                     </ul>
                     <h2 className='text-xl font-semibold w-[100%] text-left my-5'>Response</h2>
                     <p className='my-2'><strong>200 OK</strong>: Returns a JSON object containing a detailed summary of the repository.</p>
-                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
+                    <div className="bg-black my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
                         <div><span>{`{`}</span></div>
                         <div className="ml-4">
                             <span className="text-orange-500">{`"summary"`}</span>
@@ -67,7 +67,7 @@ export default function APIdocs() {
                         <div><span>{`}`}</span></div>
                     </div>
                     <p className='my-2'><strong>Error</strong>: If username or repository name is invalid or data fetching fails</p>
-                    <div className="bg-[#5C5470] my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
+                    <div className="bg-black my-5 py-2 px-3 rounded-lg font-mono sm:w-[100%] lg:w-[60%]">
                         <div><span>{`{`}</span></div>
                         <div className="ml-4">
                             <span className="text-orange-500">{`"summary"`}</span>

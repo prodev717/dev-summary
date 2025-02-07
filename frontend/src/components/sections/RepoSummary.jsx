@@ -4,6 +4,7 @@ import { TbNotes } from 'react-icons/tb';
 import { FaRegCopy } from 'react-icons/fa';
 import { RiResetLeftFill } from 'react-icons/ri';
 import { ToastContainer, toast } from 'react-toastify';
+import ReactMarkdown from 'react-markdown';
 
 export default function RepoSummary() {
     const [username, setUsername] = useState('');
@@ -135,7 +136,7 @@ export default function RepoSummary() {
                         </button>
                     </div>
                 </div>
-                <div className="w-[97%] h-fit text-white text-md flex flex-col justify-center items-center px-2 py-2 motion-preset-fade motion-duration-[2.5s] my-5">
+                <div className="w-[97%] h-fit text-white text-md flex flex-col justify-center items-center motion-preset-fade motion-duration-[2.5s]">
                     {loading ? (
                         <div
                         className="inline-block h-12 w-12 mb-4 animate-spin rounded-full border-4 border-solid border-white border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
@@ -146,11 +147,11 @@ export default function RepoSummary() {
                         </div>
                     ) : null}
                     {repoSummary && !loading ? (
-                        <div className="text-white border-white flex flex-col items-center">
-                            <p className='my-1'>{repoSummary.summary}</p>
+                        <div className="w-[100%] text-white border-white flex flex-col prose sm:prose-lg lg:prose-xl prose-h1:text-4xl prose-h1:text-white prose-p:text-lg prose-strong:text-white prose-ul:list-disc prose-ul:text-white">
+                            <ReactMarkdown className='w-[95%]'>{repoSummary.summary}</ReactMarkdown>
                         </div>
                     ) : (
-                        <p className="text-white text-lg">
+                        <p className="text-white text-lg my-3">
                             The summary of the repository will be displayed here
                         </p>
                     )}

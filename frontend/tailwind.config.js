@@ -14,14 +14,23 @@ export default {
       fontFamily: {
         'poppins': ['Poppins'],
         'noto-sans': ['Noto Sans'],
-      }
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            'code::before': { content: 'none' }, 
+            'code::after': { content: 'none' },  
+          },
+        },
+      },
     },
   },
   
   plugins: [
     require('tailwindcss-motion'),
     require('@tailwindcss/typography'),
-    require('tailwind-scrollbar'),
+    require('tailwind-scrollbar')({ nocompatible: true }),
+    require('@tailwindcss/typography')
   ]
 }
 

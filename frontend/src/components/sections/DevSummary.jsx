@@ -137,7 +137,7 @@ export default function DevSummary() {
                         </div>
                     ) : null}
                     {userSummary&& !loading ? (
-                        <div className="w-[100%] text-white border-white flex flex-col prose sm:prose-lg lg:prose-2xl prose-h1:text-4xl prose-h1:text-white prose-p:text-lg prose-strong:text-white prose-ul:list-disc prose-ul:text-white">
+                        <div className="w-[100%] text-white border-white flex flex-col prose sm:prose-lg lg:prose-xl prose-h1:text-xl prose-h1:text-white prose-p:text-lg prose-strong:text-white prose-strong:text-lg prose-ul:list-disc prose-ul:text-white">
                             <ReactMarkdown className='w-[95%]'>{userSummary.summary}</ReactMarkdown>
                         </div>
                     ) : (

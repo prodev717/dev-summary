@@ -60,8 +60,7 @@ def aiResponseUser(username):
                 "The data below is a JSON representation of projects developed by a developer."
                 "Provide a plain text summary of the developer's skills, experience, and what kind of developer"
                 "they are based on these projects. Include an explanation of their projects, highlighting the"
-                "technologies and key features, use he or she to refer the dev based on their name."
-                "Use only plain text with no formatting or special characters\n"
+                "technologies and key features, use he or she to refer the dev based on their name.\n"
             )
             response = requests.post(
                 api,
@@ -97,8 +96,7 @@ def aiResponseRepo(username,reponame):
             headers = {"Content-Type": "application/json"}
             prompt = (
                 "The data below is a README content of particular project developed by a developer."
-                "explain the project very detaily in a para"
-                "Use only plain text with no formatting or special characters\n"
+                "explain the project very detaily in a para\n"
             )
             response = requests.post(
                 api,

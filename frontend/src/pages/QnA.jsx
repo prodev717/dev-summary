@@ -105,7 +105,7 @@ export default function Qna() {
     };
 
     return (
-        <div className="h-screen w-screen max-w-full max-h-full pt-[70px] flex justify-center items-end bg-[#282929]">
+        <div className="h-screen w-screen max-w-full max-h-full pt-[70px] flex justify-center items-end bg-[#282929] bg-opacity-70">
             <div className='fixed sm:top-6 z-50 lg:top-auto lg:bottom-[30px] sm:right-3 lg:left-3 h-fit w-fit rounded-xl border-2 flex sm:flex-col lg:flex-col-reverse bg-[#4f4f4f]'>
                 <ToastContainer style={{ top: '4em' }} autoClose={1000}/>
                 <button className='h-full py-1 text-white flex' onClick={() => setModeOpen(!modeOpen)}>

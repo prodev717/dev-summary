@@ -50,7 +50,7 @@ export default function DevSummary() {
 
     return (
         <div className="w-screen max-w-full flex flex-col items-center justify-center mt-7">
-            <div className="sm:w-[90%] h-fit lg:w-[60%] bg-black rounded-lg border-white border-4 flex flex-col justify-center items-center motion-preset-fade motion-duration-[2.5s]">
+            <div className="sm:w-[90%] h-fit lg:w-[60%] bg-black rounded-lg border-white border-4 flex flex-col justify-center items-center motion-preset-fade motion-duration-[2.5s] mb-10">
                 <div className="w-[100%] flex sm:flex-wrap lg:flex-nowrap items-center justify-between border-b-white border-b-2">
                     <input
                         id="username"
@@ -58,6 +58,15 @@ export default function DevSummary() {
                         placeholder="Enter a github username"
                         className="sm:w-[100%] lg:w-[70%] sm:text-md lg:text-lg h-10 py-2 px-2 bg-transparent text-white placeholder-white outline-none border-white border-2"
                         onChange={(e) => setUsername(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                if (e.target.value === '') return;
+                                e.preventDefault()
+                                handleSummary();
+                                setLoading(true);
+                            };
+                        }}
+                        autoComplete='off'
                     />
                     <div className='flex sm:w-[100%] lg:w-fit'>
                         <button
@@ -137,7 +146,7 @@ export default function DevSummary() {
                         </div>
                     ) : null}
                     {userSummary&& !loading ? (
-                        <div className="w-[100%] text-white border-white flex flex-col prose sm:prose-lg lg:prose-xl prose-h1:text-xl prose-h1:text-white prose-p:text-lg prose-strong:text-white prose-strong:text-lg prose-ul:list-disc prose-ul:text-white">
+                        <div className="w-[100%] text-white border-white px-2 flex flex-col prose sm:prose-lg lg:prose-xl prose-h1:text-xl prose-h1:text-white prose-p:text-lg prose-strong:text-white prose-strong:text-lg prose-ul:list-disc prose-ul:text-white">
                             <ReactMarkdown className='w-[95%]'>{userSummary.summary}</ReactMarkdown>
                         </div>
                     ) : (

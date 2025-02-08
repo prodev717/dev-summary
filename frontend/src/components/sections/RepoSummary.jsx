@@ -49,7 +49,7 @@ export default function RepoSummary() {
 
     return (
         <div className="w-screen max-w-full flex flex-col items-center mt-7">
-            <div className="sm:w-[85%] h-fit lg:w-[60%] bg-black rounded-lg border-white border-4 flex flex-col motion-preset-fade motion-duration-[2.5s]">
+            <div className="sm:w-[85%] h-fit lg:w-[60%] bg-black rounded-lg border-white border-4 flex flex-col motion-preset-fade motion-duration-[2.5s] mb-10">
                 <div className="w-[100%] h-fit flex sm:flex-col lg:flex-row border-white border-b-2">
                     <div className="h-[100%] sm:w-[100%] lg:w-[75%] flex">
                         <input
@@ -58,6 +58,7 @@ export default function RepoSummary() {
                             placeholder="GitHub username"
                             className="sm:w-[50%] lg:w-[50%] text-center sm:text-sm lg:text-lg h-10 py-1 px-2 bg-transparent border-white border-2 text-white placeholder-white outline-none"
                             onChange={(e) => setUsername(e.target.value)}
+                            autoComplete='off'
                         />
                         <input
                             id="repository"
@@ -65,6 +66,7 @@ export default function RepoSummary() {
                             placeholder="Repository name"
                             className="sm:w-[50%] lg:w-[50%] text-center sm:text-sm lg:text-lg h-10 py-1 px-2 bg-transparent border-white border-2 text-white placeholder-white outline-none"
                             onChange={(e) => setRepository(e.target.value)}
+                            autoComplete='off'
                         />
                     </div>
                     <div className='flex sm:w-[100%] lg:w-fit'>
@@ -78,7 +80,7 @@ export default function RepoSummary() {
                                 handleSummary();
                                 setLoading(true);
                             }}
-                            disabled={loading}
+                            disabled={loading || repoSummary}
                         >
                             <ToastContainer 
                                 autoClose={1000}
@@ -139,7 +141,7 @@ export default function RepoSummary() {
                 <div className="w-[97%] h-fit text-white text-md flex flex-col justify-center items-center motion-preset-fade motion-duration-[2.5s]">
                     {loading ? (
                         <div
-                        className="inline-block h-12 w-12 mb-4 animate-spin rounded-full border-4 border-solid border-white border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                        className="inline-block h-12 w-12 my-4 animate-spin rounded-full border-4 border-solid border-white border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                         role="status">
                             <span
                             className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
@@ -147,11 +149,11 @@ export default function RepoSummary() {
                         </div>
                     ) : null}
                     {repoSummary && !loading ? (
-                        <div className="w-[100%] text-white border-white flex flex-col prose sm:prose-lg lg:prose-xl prose-h1:text-xl prose-h1:text-white prose-p:text-lg prose-strong:text-white prose-strong:text-lg prose-ul:list-disc prose-ul:text-white">
+                        <div className="w-[100%] text-white border-white flex flex-col items-center prose sm:prose-lg lg:prose-xl prose-h1:text-xl prose-h1:text-white prose-p:text-lg prose-strong:text-white prose-strong:text-lg prose-ul:list-disc prose-ul:text-white">
                             <ReactMarkdown className='w-[95%]'>{repoSummary.summary}</ReactMarkdown>
                         </div>
                     ) : (
-                        <p className="text-white text-lg my-3">
+                        <p className="text-white text-lg my-3 mx-3">
                             The summary of the repository will be displayed here
                         </p>
                     )}

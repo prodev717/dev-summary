@@ -19,10 +19,10 @@ export default function Qna() {
     const [UserRepoHolder, setUserRepoHolder] = useState('username/repository');
     const [loading, setLoading] = useState(false);
 
-    function handleSet(username, repository) {
+    async function handleSet(username, repository) {
         const url = mode === 'Dev' ? `http://127.0.0.1:8000/load/${username}` : `http://127.0.0.1:8000/load/${username}/${repository}`;
         const setToast = (mode === 'Dev') ? toast.loading('Setting username', { closeButton: true }) : toast.loading('Setting username & repository', { closeButton: true });
-        axios.get(url)
+        await axios.get(url)
         .then((data) => {
             if (data.statusText === "OK") {
                 setLoading(false);
@@ -50,8 +50,9 @@ export default function Qna() {
     };
 
     function handleSubmitQuery() {
+        const warnToast = toast.warn('Cannot submit empty query!', { closeButton: true });
         if (query === '') {
-            alert('Cannot submit empty query');
+            toast.update(warnToast, { render: "Cannot submit empty query!", type: "warn", isLoading: false, closeButton: true, autoClose: 500 });
             return;
         }
         
@@ -107,7 +108,7 @@ export default function Qna() {
     return (
         <div className="h-screen w-screen max-w-full max-h-full pt-[70px] flex justify-center items-end bg-[#282929] bg-opacity-70">
             <div className='fixed sm:top-6 z-50 lg:top-auto lg:bottom-[30px] sm:right-3 lg:left-3 h-fit w-fit rounded-xl border-2 flex sm:flex-col lg:flex-col-reverse bg-[#4f4f4f]'>
-                <ToastContainer style={{ top: '4em' }} autoClose={1000}/>
+                <ToastContainer style={{ top: '4em' }} autoClose={1000} hideProgressBar/>
                 <button className='h-full py-1 text-white flex' onClick={() => setModeOpen(!modeOpen)}>
                     <p className='text-white my-auto px-2'>{mode}</p>
                     <MdArrowRight className={'h-8 w-8 sm:rotate-90 lg:-rotate-90'} />
@@ -172,10 +173,15 @@ export default function Qna() {
                             type="text"
                             value={username}
                             placeholder="Username"
-                            className="sm:w-32 lg:w-36 max-w-[150px] max-h-10 outline-none bg-transparent text-md text-center"
+                            className="sm:w-32 lg:w-36 max-w-[150px] outline-none bg-transparent text-md text-center"
                             onChange={(e) => setUsername(e.target.value)}
+                            onKeyDown={(e) => { if (e.key === 'Enter') setUsername(e.target.value) }}
+                            autoComplete="off"
                         /> : null}
-                        <button onClick={() => setOpen(!open)}>
+                        <button 
+                        onClick={() => setOpen(!open)}
+                        disabled={username === UserNameHolder}
+                        >
                             {(open && username && !loading) || (username && (UserNameHolder !== 'Username' && UserNameHolder !== 'Setting') && !loading) ? 
                             <TiTick 
                                 id='tick'
@@ -205,6 +211,7 @@ export default function Qna() {
                             placeholder="Username"
                             className="sm:w-24 lg:w-36 max-w-[150px] max-h-10 outline-none bg-transparent text-md text-center"
                             onChange={(e) => setUsername(e.target.value)}
+                            autoComplete="off"
                             />
                             /
                             <input
@@ -213,10 +220,12 @@ export default function Qna() {
                             placeholder="Repository"
                             className="sm:w-24 lg:w-40 lg:max-w-[170px] max-h-10 outline-none bg-transparent text-md text-center"
                             onChange={(e) => setRepository(e.target.value)}
+                            autoComplete="off"
                             />
                         </div> : null}
                         <button 
                         className='flex justify-center'
+                        disabled={UserRepoHolder === `${username}/${repository}`}
                         onClick={() => setOpen(!open)}>
                             {(open && username && repository && !loading) || (username && (UserNameHolder !== 'Username' && UserNameHolder !== 'Setting') && !loading) ? 
                             <TiTick 
@@ -238,8 +247,9 @@ export default function Qna() {
                     <div className='flex sm:gap-[2px] lg:gap-2 sm:mt-2 lg:mt-0'>
                         <button>
                             <GrPowerReset 
-                            className='h-8 w-8 hover:rotate-180 transition duration-500'
+                            className='h-8 w-8 enabled:hover:rotate-180 transition duration-500'
                             onClick={handleReset}
+                            disabled={(mode === 'Dev') ? (!username && !query) : (!username && !repository && !query)}
                             />
                         </button>
                         <button>

@@ -34,7 +34,7 @@ export default function NavBar() {
     
     return (
         <>
-            <nav className={`fixed top-0 left-0 w-full h-fit px-5 py-3 font-poppins z-50 ${document.location.pathname === '/qna' ? 'bg-[#282929] bg-opacity-70' : 'bg-black'}`}>
+            <nav className={`fixed top-0 left-0 w-full h-fit px-5 py-3 font-poppins z-50 ${document.location.pathname === '/qna' ? 'bg-[#282929]' : 'bg-black'}`}>
                 <div className='flex items-center justify-center'>
                     <div className='md:hidden mr-auto mt-2'>
                         <button className='text-white' onClick={() => setIsOpen(!isOpen)} >

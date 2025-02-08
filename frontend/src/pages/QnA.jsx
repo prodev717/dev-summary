@@ -7,6 +7,7 @@ import { GrPowerReset } from 'react-icons/gr';
 import { MdArrowRight } from 'react-icons/md';
 import { TiTick } from 'react-icons/ti';
 import backend from '../components/common/Backend';
+import { TypeAnimation } from 'react-type-animation';
 
 export default function Qna() {
     const [query, setQuery] = useState('');
@@ -19,11 +20,12 @@ export default function Qna() {
     const [UserNameHolder, setUserNameHolder] = useState('username');
     const [UserRepoHolder, setUserRepoHolder] = useState('username/repository');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
-    function handleSet(username, repository) {
+    async function handleSet(username, repository) {
         const endpoint = mode === 'Dev' ? username : `${username}/${repository}`;
         const setToast = (mode === 'Dev') ? toast.loading('Setting username', { closeButton: true }) : toast.loading('Setting username & repository', { closeButton: true });
-        axios.get(`${backend}/load/${endpoint}`)
+        await axios.get(`${backend}/load/${endpoint}`)
         .then((data) => {
             if (data.statusText === "OK") {
                 setLoading(false);
@@ -39,26 +41,29 @@ export default function Qna() {
         })
         .catch((e) => {
             setLoading(false);
+            setError(true);
             if (mode === 'Dev') {
                 toast.update(setToast, { render: "Something went wrong", type: "error", isLoading: false, closeButton: true, autoClose: 2000 });
                 setUserNameHolder('username');
+                setUsername('');
             }
             else if (mode === 'Repo') {
                 toast.update(setToast, { render: "Something went wrong", type: "error", isLoading: false, closeButton: true, autoClose: 2000 });
                 setUserRepoHolder('username/repository');
+                setUsername('');
+                setRepository('');
             }
         });
     };
 
     function handleSubmitQuery() {
-        const warnToast = toast.warn('Cannot submit empty query!', { closeButton: true });
         if (query === '') {
-            toast.update(warnToast, { render: "Cannot submit empty query!", type: "warn", isLoading: false, closeButton: true, autoClose: 500 });
+            toast.warn('Cannot submit empty query!', { closeButton: true });
             return;
         }
         
         const authOptions = {
-            url: mode === 'Dev' ? 'http://127.0.0.1:8000/chatdev' : 'http://127.0.0.1:8000/chatrepo',
+            url: mode === 'Dev' ? `${backend}/chatdev` : `${backend}/chatrepo`,
             method: 'POST',
             headers: { 
                 'Content-type': 'application/json' 
@@ -92,15 +97,17 @@ export default function Qna() {
         setRepository('');
         mode === 'Dev' ? setUserNameHolder('username') : setUserRepoHolder('username/repository');
         setLoading(false);
+        setError(false);
+        setModeOpen(false);
     };
     
     function handleSetVariables() {
         if (mode === 'Dev') {
-            setUserNameHolder('Fetching...');
+            setUserNameHolder('Setting...');
             handleSet(username);
         } 
         else if (mode === 'Repo') {
-            setUserRepoHolder('Fetching');
+            setUserRepoHolder('Setting...');
             handleSet(username, repository);
         }
         setLoading(true);
@@ -142,8 +149,8 @@ export default function Qna() {
                             <div className='w-100%'>
                                 <p className='bg-[#494a49] text-white sm:text-md lg:text-lg rounded-full px-3 py-2 float-right'>{conv.query}</p>
                             </div>
-                            <div className='w-[100%] prose sm:prose-lg lg:prose-2xl sm:prose-h1:text-2xl lg:prose-h1:text-4xl prose-h1:text-white sm:prose-p:text-md lg:prose-p:text-lg prose-strong:text-white prose-ul:list-disc prose-ol:list-item prose-ul:text-white prose-code:text-white prose-a:text-[#2256c7] prose-pre:bg-[#494a49]'>
-                                <ReactMarkdown className='text-white sm:text-md lg:text-lg px-3 py-2 float-left max-w-[100%]'>{conv.response}</ReactMarkdown>
+                            <div className='w-[100%] prose sm:prose-lg lg:prose-2xl sm:prose-h1:text-2xl lg:prose-h1:text-4xl prose-h1:text-white sm:prose-p:text-md lg:prose-p:text-lg prose-strong:text-white prose-ul:list-disc prose-ol:list-item prose-ul:text-white prose-code:text-white prose-a:text-[#2256c7] prose-pre:bg-[#494a49] motion-opacity-in-0'>
+                                <ReactMarkdown className='text-white sm:text-md lg:text-lg px-3 py-2 float-left max-w-[100%] motion-opacity-in-0'>{conv.response}</ReactMarkdown>
                             </div>
                         </div>
                     ))}
@@ -183,7 +190,7 @@ export default function Qna() {
                         onClick={() => setOpen(!open)}
                         disabled={username === UserNameHolder}
                         >
-                            {(open && username && !loading) || (username && (UserNameHolder !== 'Username' && UserNameHolder !== 'Setting') && !loading) ? 
+                            {(open && username && !loading && !error) || (username && (UserNameHolder !== 'Username' && UserNameHolder !== 'Setting') && !loading && !error) ? 
                             <TiTick 
                                 id='tick'
                                 className='w-8 h-8 rounded-full bg-white text-[#4f4f4f]'
@@ -228,7 +235,7 @@ export default function Qna() {
                         className='flex justify-center'
                         disabled={UserRepoHolder === `${username}/${repository}`}
                         onClick={() => setOpen(!open)}>
-                            {(open && username && repository && !loading) || (username && (UserNameHolder !== 'Username' && UserNameHolder !== 'Setting') && !loading) ? 
+                            {(open && username && repository && !loading && !error) || (username && (UserNameHolder !== 'Username' && UserNameHolder !== 'Setting') && !loading && !error) ? 
                             <TiTick 
                                 id='tick'
                                 className='w-8 h-8 rounded-full bg-white text-[#4f4f4f]'

@@ -5,7 +5,7 @@ import { TbNotes } from 'react-icons/tb';
 import { RiResetLeftFill } from 'react-icons/ri';
 import { ToastContainer, toast } from 'react-toastify';
 import ReactMarkdown from 'react-markdown';
-
+import backend from '../common/Backend';
 
 export default function DevSummary() {
     const [username, setUsername] = useState('');
@@ -14,7 +14,7 @@ export default function DevSummary() {
 
     async function handleSummary() {
         await axios.get(
-            `http://localhost:8000/devinfo/${username}`,
+            `${backend}/devinfo/${username}`,
             {
                 headers: {'Content-Type': 'application/json'}
             }

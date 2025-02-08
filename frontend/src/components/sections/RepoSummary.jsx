@@ -5,6 +5,7 @@ import { FaRegCopy } from 'react-icons/fa';
 import { RiResetLeftFill } from 'react-icons/ri';
 import { ToastContainer, toast } from 'react-toastify';
 import ReactMarkdown from 'react-markdown';
+import backend from '../common/Backend';
 
 export default function RepoSummary() {
     const [username, setUsername] = useState('');
@@ -14,7 +15,7 @@ export default function RepoSummary() {
 
     async function handleSummary() {
         await axios.get(
-            `http://localhost:8000/repoinfo/${username}/${repository}`,
+            `${backend}/repoinfo/${username}/${repository}`,
             {
                 headers: { 'Content-Type': 'application/json' } 
             }

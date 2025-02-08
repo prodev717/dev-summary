@@ -6,6 +6,7 @@ import { FaChevronCircleUp } from 'react-icons/fa';
 import { GrPowerReset } from 'react-icons/gr';
 import { MdArrowRight } from 'react-icons/md';
 import { TiTick } from 'react-icons/ti';
+import backend from '../components/common/Backend';
 
 export default function Qna() {
     const [query, setQuery] = useState('');
@@ -19,10 +20,10 @@ export default function Qna() {
     const [UserRepoHolder, setUserRepoHolder] = useState('username/repository');
     const [loading, setLoading] = useState(false);
 
-    async function handleSet(username, repository) {
-        const url = mode === 'Dev' ? `http://127.0.0.1:8000/load/${username}` : `http://127.0.0.1:8000/load/${username}/${repository}`;
+    function handleSet(username, repository) {
+        const endpoint = mode === 'Dev' ? username : `${username}/${repository}`;
         const setToast = (mode === 'Dev') ? toast.loading('Setting username', { closeButton: true }) : toast.loading('Setting username & repository', { closeButton: true });
-        await axios.get(url)
+        axios.get(`${backend}/load/${endpoint}`)
         .then((data) => {
             if (data.statusText === "OK") {
                 setLoading(false);

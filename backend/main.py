@@ -167,7 +167,7 @@ def chatUser():
             api = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI}"
             headers = {"Content-Type": "application/json"}
             prompt0 = ("\n data of a developer is given," 
-                       "ansewer below question," 
+                       "ansewer the below question," 
                        "our chat history is provided answer relevently,"
                        "do not mention about chat history\n")
             chat_history = f"\n our chat history : {json.dumps(chathistory)} \n" 
@@ -197,18 +197,31 @@ def chatRepo():
     if not data or "username" not in data or "prompt" not in data or "repository" not in data:
         return jsonify({"error": "Bad Request", "message": "Missing 'username','repository' or 'prompt' in request body."}), 400
     repo = session.get(data["username"]+"/"+data["repository"])
+    chathistory = session.get("chat_history:"+data["username"]+"/"+data["repository"])
+    if chathistory:
+        chathistory = json.loads(chathistory.decode())
+    else:
+        chathistory = []
     if repo:
         try:    
             api = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI}"
             headers = {"Content-Type": "application/json"}
-            prompt0 = "\n data of a project is given, ansewer below question \n"
+            prompt0 = ("\n data of a project is given," 
+                       "ansewer the below question," 
+                       "our chat history is provided answer relevently,"
+                       "do not mention about chat history\n")
+            chat_history = f"\n our chat history : {json.dumps(chathistory)} \n"
             response = requests.post(
                 api,
                 headers=headers,
-                json={"contents": [{"parts": [{"text": repo.decode()+prompt0+data["prompt"]}]}]}
+                json={"contents": [{"parts": [{"text": repo.decode()+prompt0+data["prompt"]+chat_history}]}]}
             )
             if response.status_code == 200:
-                return response.json()["candidates"][0]["content"]["parts"][0]["text"], 200
+                res = response.json()["candidates"][0]["content"]["parts"][0]["text"]
+                chathistory.append({"user":data["prompt"]})
+                chathistory.append({"gemini":res})
+                session.set("chat_history:"+data["username"]+"/"+data["repository"],json.dumps(chathistory),600)
+                return res, 200
             else:
                 print(f"AI API error: {response.status_code} - {response.text}")
                 return jsonify({"error": "AI API Error", "message": f"Status code: {response.status_code}. Details: {response.text}"}), 500

@@ -230,6 +230,3 @@ def chatRepo():
             return jsonify({"error": "Internal Server Error", "message": f"Exception: {e}"}), 500
     else:
         return jsonify({"error": "Not Found", "message": "No cached data found for the given username/repository ."}), 404
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=8000,debug=True)

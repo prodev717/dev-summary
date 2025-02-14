@@ -76,7 +76,7 @@ export default function Landing() {
             <section id='demo1' ref={devInfoRef} className='w-full h-full flex flex-col justify-center items-center'>
                 <h1 className='text-4xl text-center text-white font-poppins font-semibold sm:mb-12 lg:mb-20'>DevInfo</h1>
                 <div className='flex sm:flex-col-reverse lg:flex-row w-[90%] items-center justify-center gap-10'>
-                    <p id='devinfotext' className='sm:text-lg lg:text-xl text-white font-poppins text-balance sm:w-[97%] lg:w-[50%]'>✨ Discover GitHub profiles like never before! Simply enter a GitHub username, and our intelligent system gets to work. 🔍 We fetch real-time user data via the GitHub API, analyze it with the power of Gemini AI 🤖, and generate a concise yet insightful summary. 🚀 Whether you're exploring developers, researching contributors, or just curious, get a smart, AI-driven overview in seconds! ⏳</p>
+                    <p id='devinfotext' className='sm:text-lg lg:text-xl text-white font-poppins text-balance sm:w-[97%] lg:w-[50%]'>✨ Discover GitHub profiles like never before! Simply enter a GitHub username, and our intelligent system gets to work. 🔍 We fetch real-time user data via the GitHub API, analyze it with the power of Gemini AI 🤖, and generate a concise yet insightful summary. 🚀 Whether you're exploring developers, researching contributors, or just curious, get a smart, AI-driven overview in seconds! ⏳ {'[Note: Data is taken from the README.md file only]'}</p>
                     <div className='sm:w-[97%] lg:w-[50%] flex gap-5 justify-center'>
                         <img src={githubIcon} alt="GitHub Icon" className='sm:w-24 lg:w-32'/>
                         <a className='motion-opacity-in-0 -motion-translate-x-in-100' href='/devinfo'>
@@ -94,13 +94,13 @@ export default function Landing() {
                             <img src={repoIcon} alt="" className='sm:w-8 sm:h-8 lg:w-10 lg:h-10'/>
                         </a>
                     </div>
-                    <p id='repoinfotext' className='sm:text-lg lg:text-xl text-white font-poppins text-balance sm:w-[97%] lg:w-[50%]'>🚀 Unlock powerful insights with AI! Simply enter a GitHub username and a repository name, and let our system do the rest. 🔍 We fetch detailed repository data using the GitHub API, analyze it with Gemini AI 🤖, and generate a concise, insightful summary. Get a smart, AI-powered breakdown of any repository in seconds! ⏳</p>
+                    <p id='repoinfotext' className='sm:text-lg lg:text-xl text-white font-poppins text-balance sm:w-[97%] lg:w-[50%]'>🚀 Unlock powerful insights with AI! Simply enter a GitHub username and a repository name, and let our system do the rest. 🔍 We fetch detailed repository data using the GitHub API, analyze it with Gemini AI 🤖, and generate a concise, insightful summary. Get a smart, AI-powered breakdown of any repository in seconds! ⏳ {'[Note: Data is taken from the README.md file only]'}</p>
                 </div>
             </section>
             <section ref={qnaRef} className='w-full h-full flex flex-col justify-center items-center'>
                 <h1 className='text-4xl text-center text-white font-poppins font-semibold sm:mb-12 lg:mb-20'>Q&A</h1>
                 <div className='flex sm:flex-col-reverse lg:flex-row w-[90%] items-center justify-center gap-10'>
-                    <p id='repoinfotext' className='sm:text-lg lg:text-xl text-white font-poppins text-balance sm:w-[97%] lg:w-[50%]'>🤖 Chat with AI about any GitHub profile or repository! Simply enter a GitHub username—or choose a specific repository—and ask anything. 🚀 Our Gemini AI-powered tool fetches real-time data, analyzes it, and provides instant answers, helping you explore profiles, understand code, and clarify doubts effortlessly. 🔍 Get AI-driven insights in seconds!</p>
+                    <p id='repoinfotext' className='sm:text-lg lg:text-xl text-white font-poppins text-balance sm:w-[97%] lg:w-[50%]'>🤖 Chat with AI about any GitHub profile or repository! Simply enter a GitHub username—or choose a specific repository—and ask anything. 🚀 Our Gemini AI-powered tool fetches real-time data, analyzes it, and provides instant answers, helping you explore profiles, understand code, and clarify doubts effortlessly. 🔍 Get AI-driven insights in seconds! {'[Note: Data is taken from the README.md file only]'}</p>
                     <div className='sm:w-[97%] lg:w-[50%] flex gap-5 justify-center'>
                         <img src={githubIcon} alt="GitHub Icon" className='sm:w-24 lg:w-32'/>
                         <a className='motion-opacity-in-0 -motion-translate-x-in-100' href='/qna'>

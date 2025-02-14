@@ -21,12 +21,13 @@ export default function Qna() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    async function handleSet(username, repository) {
+    function handleSet(username, repository) {
         const endpoint = mode === 'Dev' ? username : `${username}/${repository}`;
         const setToast = (mode === 'Dev') ? toast.loading('Setting username', { closeButton: true }) : toast.loading('Setting username & repository', { closeButton: true });
-        await axios.get(`${backend}/load/${endpoint}`)
+        axios.get(`${backend}/load/${endpoint}`)
         .then((data) => {
-            if (data.statusText === "OK") {
+            console.log(data);
+            if (data) {
                 setLoading(false);
                 if (mode === 'Dev') {
                     toast.update(setToast, { render: "Username set successfully", type: "success", isLoading: false, closeButton: true, autoClose: 500 });
@@ -76,7 +77,6 @@ export default function Qna() {
 
         axios(authOptions)
         .then(res => {
-            console.log(res);
             setConversations((prev) =>
                 prev.map((conv, index) =>
                     index === prev.length - 1 ? { ...conv, response: res.data } : conv

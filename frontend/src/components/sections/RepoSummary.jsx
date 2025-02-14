@@ -150,7 +150,7 @@ export default function RepoSummary() {
                         </div>
                     ) : null}
                     {repoSummary && !loading ? (
-                        <div className="w-[100%] text-white border-white flex flex-col items-center prose sm:prose-lg lg:prose-xl prose-h1:text-xl prose-h1:text-white prose-p:text-lg prose-strong:text-white prose-strong:text-lg prose-ul:list-disc prose-ul:text-white">
+                        <div className="w-[100%] text-white border-white flex flex-col items-center prose sm:prose-lg lg:prose-xl prose-h1:text-xl prose-h1:text-white prose-code:text-white prose-pre:text-white prose-p:text-lg prose-strong:text-white prose-strong:text-lg prose-ul:list-disc prose-ul:text-white">
                             <ReactMarkdown className='w-[95%]'>{repoSummary.summary}</ReactMarkdown>
                         </div>
                     ) : (

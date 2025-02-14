@@ -1,7 +1,7 @@
-POST http://127.0.0.1:8000/chatdev
+POST https://git2knowapi.onrender.com/chatdev
 Content-Type: application/json
 
 {
-    "username":"muhammadsajidy",
+    "username":"prodev717",
     "prompt":"does he capable of game development?"
 }

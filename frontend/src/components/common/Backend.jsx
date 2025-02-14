@@ -1,2 +1,2 @@
-let backend = "http://localhost:8000";
+let backend = "https://git2knowapi.onrender.com";
 export default backend;

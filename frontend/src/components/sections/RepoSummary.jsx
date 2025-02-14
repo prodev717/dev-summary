@@ -67,6 +67,14 @@ export default function RepoSummary() {
                             placeholder="Repository name"
                             className="sm:w-[50%] lg:w-[50%] text-center sm:text-sm lg:text-lg h-10 py-1 px-2 bg-transparent border-white border-2 text-white placeholder-white outline-none"
                             onChange={(e) => setRepository(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    if (e.target.value === '') return;
+                                    e.preventDefault()
+                                    handleSummary();
+                                    setLoading(true);
+                                };
+                            }}
                             autoComplete='off'
                         />
                     </div>

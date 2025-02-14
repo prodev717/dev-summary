@@ -15,7 +15,7 @@ export default function APIdocs() {
                         <li className='text-md mt-2'>Retrieve a detailed summary of a specific GitHub repository.</li>
                     </ul>
                     <h2 className='text-2xl font-bold w-[100%] text-left mt-7'>Base URL</h2>
-                    <p className='bg-black rounded w-fit p-1 text-md my-4'>https://git2know.com</p>
+                    <p className='bg-black rounded w-fit p-1 text-md my-4'>https://git2knowapi.onrender.com</p>
                     <h2 className='text-2xl font-bold w-[100%] text-left mt-7'>Endpoints</h2>
                     <h2 className='text-xl font-bold w-[100%] text-left mt-7'>1. Developer Summary</h2>
                     <p className='bg-black rounded w-fit p-1 text-md my-4'>GET /devinfo/{`<username>`}</p>

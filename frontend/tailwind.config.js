@@ -14,6 +14,7 @@ export default {
       fontFamily: {
         'poppins': ['Poppins'],
         'noto-sans': ['Noto Sans'],
+        'indie-flower': ['Indie Flower'],
       },
       typography: {
         DEFAULT: {

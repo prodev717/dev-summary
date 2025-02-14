@@ -12,6 +12,8 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@heroicons/react": "^2.2.0",
+    "@react-three/drei": "^9.121.4",
+    "@react-three/fiber": "^8.17.14",
     "@types/three": "^0.173.0",
     "axios": "^1.7.9",
     "framer-motion": "^12.3.1",
@@ -24,7 +26,8 @@
     "react-router-dom": "^7.1.1",
     "react-toastify": "^11.0.3",
     "react-type-animation": "^3.2.0",
-    "split-type": "^0.3.4"
+    "split-type": "^0.3.4",
+    "three": "^0.173.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

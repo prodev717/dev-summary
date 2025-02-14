@@ -7,7 +7,6 @@ import { GrPowerReset } from 'react-icons/gr';
 import { MdArrowRight } from 'react-icons/md';
 import { TiTick } from 'react-icons/ti';
 import backend from '../components/common/Backend';
-import { TypeAnimation } from 'react-type-animation';
 
 export default function Qna() {
     const [query, setQuery] = useState('');
@@ -149,7 +148,7 @@ export default function Qna() {
                             <div className='w-100%'>
                                 <p className='bg-[#494a49] text-white sm:text-md lg:text-lg rounded-full px-3 py-2 float-right'>{conv.query}</p>
                             </div>
-                            <div className='w-[100%] prose sm:prose-lg lg:prose-2xl sm:prose-h1:text-2xl lg:prose-h1:text-4xl prose-h1:text-white sm:prose-p:text-md lg:prose-p:text-lg prose-strong:text-white prose-ul:list-disc prose-ol:list-item prose-ul:text-white prose-code:text-white prose-a:text-[#2256c7] prose-pre:bg-[#494a49] motion-opacity-in-0'>
+                            <div className='w-[100%] prose sm:prose-lg lg:prose-2xl sm:prose-h1:text-2xl lg:prose-h1:text-4xl prose-h1:text-white sm:prose-p:text-md lg:prose-p:text-lg prose-strong:text-white prose-ul:list-disc prose-ol:list-item prose-ul:text-white prose-code:text-white prose-a:text-[#2256c7] prose-pre:bg-[#494a49] prose-pre:text-white motion-opacity-in-0'>
                                 <ReactMarkdown className='text-white sm:text-md lg:text-lg px-3 py-2 float-left max-w-[100%] motion-opacity-in-0'>{conv.response}</ReactMarkdown>
                             </div>
                         </div>

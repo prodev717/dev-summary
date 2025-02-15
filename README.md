@@ -75,3 +75,8 @@ Technologies used in the project:
 <h2>🛡️ License:</h2>
 
 This project is licensed under the MIT License
+
+<h2>📝 Note:</h2>
+
+This project is now actively maintained and developed by [TeamX](https://github.com/TeamXVit) as Git2Know.
+You can find the latest version and updates here: [TeamX/git2know](https://github.com/TeamXVit/git2know).
